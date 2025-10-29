@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface DepartmentService {
     List<DepartmentDto> getDepartments();
+    List<DepartmentDto> searchDepartments(String name);
     DepartmentDto getDepartmentByID(Long id);
     boolean createDepartment(DepartmentDto departmentDto);
     boolean updateDepartment(DepartmentDto departmentDto, Long id);

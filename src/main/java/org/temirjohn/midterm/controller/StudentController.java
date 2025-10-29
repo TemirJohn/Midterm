@@ -19,6 +19,15 @@ public class StudentController {
         return new ResponseEntity<>(studentService.getStudents(), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> searchStudents(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String teacherName,
+            @RequestParam(required = false)String departmentName
+            ) {
+        return new ResponseEntity<>(studentService.searchStudents(name, teacherName, departmentName), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getStudentByID(@PathVariable Long id) {
         return new ResponseEntity<>(studentService.getStudentByID(id), HttpStatus.OK);

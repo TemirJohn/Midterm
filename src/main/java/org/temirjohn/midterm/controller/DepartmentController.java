@@ -19,6 +19,11 @@ public class DepartmentController {
         return new ResponseEntity<>(departmentService.getDepartments(), HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity<?> searchDepartments(@RequestParam(required = false) String name) {
+        return new ResponseEntity<>(departmentService.searchDepartments(name), HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getDepartmentByID(@PathVariable Long id) {
         return new ResponseEntity<>(departmentService.getDepartmentByID(id), HttpStatus.OK);

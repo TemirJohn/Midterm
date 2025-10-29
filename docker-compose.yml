@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  backend:
+    image: 'temirjohn/myapp'
+#    build: .
+    container_name: 'backend'
+    depends_on:
+      - database
+    environment:
+      - SPRING.DATASOURCE.URL=jdbc:postgresql://database-service:5432/midterm_rpo
+      - SPRING.DATASOURCE.USERNAME=temirzhan
+      - SPRING.DATASOURCE.PASSWORD=11466795
+      - SPRING.JPA.HIBERNATE.DDL-AUTO=update
+      - SPRING.JPA.SHOW-SQL=true
+    ports:
+      - "8888:8080"
+    restart: always
+
+  database:
+    image: postgres:15
+    container_name: "database-service"
+    restart: always
+    environment:
+      - POSTGRES_USER=temirzhan
+      - POSTGRES_PASSWORD=11466795
+      - POSTGRES_DB=midterm_rpo
+    ports:
+      - "2345:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
