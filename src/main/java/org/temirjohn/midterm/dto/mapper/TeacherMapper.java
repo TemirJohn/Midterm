@@ -9,8 +9,10 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TeacherMapper {
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "nameDto", source = "name")
     TeacherDto toDto(Teacher teacher);
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "nameDto")
     Teacher toEntity(TeacherDto teacherDto);
 

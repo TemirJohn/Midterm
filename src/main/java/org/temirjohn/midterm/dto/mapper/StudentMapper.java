@@ -9,10 +9,12 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {TeacherMapper.class, DepartmentMapper.class})
 public interface StudentMapper {
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "nameDto", source = "name")
     @Mapping(target = "teacherDto", source = "teachers")
     @Mapping(target = "departmentDto", source = "department")
     StudentDto toDto(Student student);
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "nameDto")
     @Mapping(target = "teachers", source = "teacherDto")
     @Mapping(target = "department", source = "departmentDto")

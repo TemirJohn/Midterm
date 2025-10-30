@@ -30,5 +30,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-volumes:
-  postgres_data:
+  test-spring-database:
+      image: postgres:15
+      container_name: "test-spring-database"
+      environment:
+        - POSTGRES_USER=temirzhan
+        - POSTGRES_PASSWORD=11466795
+        - POSTGRES_DB=midterm_rpo
+      ports:
+        - 2346:5432
+
+
