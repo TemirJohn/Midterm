@@ -8,7 +8,7 @@ public interface DepartmentService {
     List<DepartmentDto> getDepartments();
     List<DepartmentDto> searchDepartments(String name);
     DepartmentDto getDepartmentByID(Long id);
-    boolean createDepartment(DepartmentDto departmentDto);
-    boolean updateDepartment(DepartmentDto departmentDto, Long id);
+    DepartmentDto createDepartment(DepartmentDto departmentDto);
+    DepartmentDto updateDepartment(DepartmentDto departmentDto, Long id);
     void deleteDepartment(Long id);
 }

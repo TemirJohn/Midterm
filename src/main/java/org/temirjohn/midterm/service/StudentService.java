@@ -8,8 +8,8 @@ public interface StudentService {
     List<StudentDto> getStudents();
     List<StudentDto> searchStudents(String name, String teacherName, String departmentName);
     StudentDto getStudentByID(Long id);
-    boolean createStudent(StudentDto studentDto);
-    boolean updateStudent(StudentDto studentDto, Long id);
+    StudentDto createStudent(StudentDto studentDto);
+    StudentDto updateStudent(StudentDto studentDto, Long id);
     void deleteStudent(Long id);
 
 }

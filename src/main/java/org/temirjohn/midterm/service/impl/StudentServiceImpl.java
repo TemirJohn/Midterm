@@ -1,14 +1,22 @@
 package org.temirjohn.midterm.service.impl;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.temirjohn.midterm.dto.StudentDto;
+import org.temirjohn.midterm.dto.TeacherDto;
+import org.temirjohn.midterm.dto.mapper.DepartmentMapper;
 import org.temirjohn.midterm.dto.mapper.StudentMapper;
+import org.temirjohn.midterm.dto.mapper.TeacherMapper;
+import org.temirjohn.midterm.entity.Department;
 import org.temirjohn.midterm.entity.Student;
+import org.temirjohn.midterm.entity.Teacher;
+import org.temirjohn.midterm.repository.DepartmentRepository;
 import org.temirjohn.midterm.repository.StudentRepository;
+import org.temirjohn.midterm.repository.TeacherRepository;
 import org.temirjohn.midterm.service.StudentService;
 
 import java.util.ArrayList;
@@ -21,12 +29,19 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private DepartmentRepository departmentRepository;
+
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     private StudentMapper studentMapper;
+
+
 
     @Override
     public List<StudentDto> getStudents() {
@@ -67,25 +82,46 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public boolean createStudent(StudentDto studentDto) {
-       if (Objects.isNull(studentDto)) {
-           return false;
-       }
-       studentRepository.save(studentMapper.toEntity(studentDto));
-       return true;
+    public StudentDto createStudent(StudentDto studentDto) {
+        if (Objects.isNull(studentDto)) {
+            return null;
+        }
+        studentDto.setId(null);
+        Student student = studentMapper.toEntity(studentDto);
+        Student savedStudent = studentRepository.save(student);
+        return studentMapper.toDto(savedStudent);
     }
 
+
     @Override
-    public boolean updateStudent(StudentDto studentDto, Long id) {
-        Student existingStudent = studentRepository.findById(id).orElse(null);
-        if (Objects.isNull(existingStudent) || Objects.isNull(studentDto)) {
-            return false;
+    public StudentDto updateStudent(StudentDto studentDto, Long id) {
+        if (studentDto == null) return null;
+        Student existing = studentRepository.findById(id).orElse(null);
+        if (existing == null) return null;
+
+        // Update name
+        existing.setName(studentDto.getNameDto());
+
+        // Update department if provided
+        if (studentDto.getDepartmentDto() != null && studentDto.getDepartmentDto().getId() != null) {
+            Department department = departmentRepository.findById(studentDto.getDepartmentDto().getId())
+                    .orElseThrow(() -> new EntityNotFoundException("Department not found"));
+            existing.setDepartment(department);
         }
-        Student updatedStudent = studentMapper.toEntity(studentDto);
-        updatedStudent.setId(id);
-        studentRepository.save(updatedStudent);
-        return true;
+
+        // Update teachers if provided
+        if (studentDto.getTeacherDto() != null && !studentDto.getTeacherDto().isEmpty()) {
+            List<Long> teacherIds = studentDto.getTeacherDto().stream()
+                    .map(TeacherDto::getId)
+                    .filter(Objects::nonNull)
+                    .toList();
+            List<Teacher> teachers = teacherRepository.findAllById(teacherIds);
+            existing.setTeachers(teachers);
+        }
+
+        return studentMapper.toDto(studentRepository.save(existing));
     }
+
 
     @Override
     public void deleteStudent(Long id) {

@@ -17,4 +17,5 @@ public interface TeacherMapper {
     Teacher toEntity(TeacherDto teacherDto);
 
     List<TeacherDto> toDtoList(List<Teacher> entities);
+    List<Teacher> toEntityList(List<TeacherDto> dtos);  // Add this
 }

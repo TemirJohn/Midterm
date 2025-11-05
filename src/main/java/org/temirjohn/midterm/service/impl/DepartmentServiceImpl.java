@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.temirjohn.midterm.dto.DepartmentDto;
 import org.temirjohn.midterm.dto.mapper.DepartmentMapper;
 import org.temirjohn.midterm.entity.Department;
+import org.temirjohn.midterm.entity.Student;
 import org.temirjohn.midterm.repository.DepartmentRepository;
 import org.temirjohn.midterm.service.DepartmentService;
 
@@ -58,23 +59,24 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean createDepartment(DepartmentDto departmentDto) {
+    public DepartmentDto createDepartment(DepartmentDto departmentDto) {
         if (Objects.isNull(departmentDto)) {
-            return false;
+            return null;
         }
-        departmentRepository.save(departmentMapper.toEntity(departmentDto));
-        return true;
+        Department department = departmentMapper.toEntity(departmentDto);
+        Department savedDepartment = departmentRepository.save(department);
+        return departmentMapper.toDto(savedDepartment);
     }
 
     @Override
-    public boolean updateDepartment(DepartmentDto departmentDto, Long id) {
+    public DepartmentDto updateDepartment(DepartmentDto departmentDto, Long id) {
         Department existingDepartment = departmentRepository.findById(id).orElse(null);
         if (Objects.isNull(existingDepartment) || Objects.isNull(departmentDto)) {
-            return false;
+            return null;
         }
         existingDepartment.setName(departmentDto.getNameDto());
-        departmentRepository.save(existingDepartment);
-        return true;
+        Department saved = departmentRepository.save(existingDepartment);
+        return departmentMapper.toDto(saved);
     }
 
     @Override

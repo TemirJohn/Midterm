@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.temirjohn.midterm.dto.TeacherDto;
 import org.temirjohn.midterm.dto.mapper.TeacherMapper;
+import org.temirjohn.midterm.entity.Department;
 import org.temirjohn.midterm.entity.Teacher;
 import org.temirjohn.midterm.repository.TeacherRepository;
 import org.temirjohn.midterm.service.TeacherService;
@@ -31,23 +32,24 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public boolean createTeacher(TeacherDto teacherDto) {
+    public TeacherDto createTeacher(TeacherDto teacherDto) {
         if (Objects.isNull(teacherDto)) {
-            return false;
+            return null;
         }
-        teacherRepository.save(teacherMapper.toEntity(teacherDto));
-        return true;
+        Teacher teacher = teacherMapper.toEntity(teacherDto);
+        Teacher savedTeacher= teacherRepository.save(teacher);
+        return teacherMapper.toDto(savedTeacher);
     }
 
     @Override
-    public boolean updateTeacher(TeacherDto teacherDto, Long id) {
+    public TeacherDto updateTeacher(TeacherDto teacherDto, Long id) {
         Teacher existingTeacher = teacherRepository.findById(id).orElse(null);
         if (Objects.isNull(existingTeacher) || Objects.isNull(teacherDto)) {
-            return false;
+            return null;
         }
         existingTeacher.setName(teacherDto.getNameDto());
-        teacherRepository.save(existingTeacher);
-        return true;
+        Teacher saved = teacherRepository.save(existingTeacher);
+        return teacherMapper.toDto(saved);
     }
 
     @Override
