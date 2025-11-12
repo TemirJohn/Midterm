@@ -1,0 +1,88 @@
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<databaseChangeLog-->
+<!--        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"-->
+<!--        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-->
+<!--                            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">-->
+
+<!--    <changeSet id="create-department-table" author="temirjohn">-->
+<!--        <createTable tableName="department">-->
+<!--            <column name="id" type="bigint" autoIncrement="true">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="name" type="varchar(255)">-->
+<!--                <constraints nullable="true"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="create-teacher-table" author="temirjohn">-->
+<!--        <createTable tableName="teacher">-->
+<!--            <column name="id" type="bigint" autoIncrement="true">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="name" type="varchar(255)">-->
+<!--                <constraints nullable="true"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="create-student-table" author="temirjohn">-->
+<!--        <createTable tableName="student">-->
+<!--            <column name="id" type="bigint" autoIncrement="true">-->
+<!--                <constraints primaryKey="true" nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="name" type="varchar(255)">-->
+<!--                <constraints nullable="true"/>-->
+<!--            </column>-->
+<!--            <column name="department_id" type="bigint">-->
+<!--                <constraints nullable="true"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="create-student-teachers-table" author="temirjohn">-->
+<!--        <createTable tableName="student_teachers">-->
+<!--            <column name="student_id" type="bigint">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--            <column name="teachers_id" type="bigint">-->
+<!--                <constraints nullable="false"/>-->
+<!--            </column>-->
+<!--        </createTable>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="add-fk-student-department" author="temirjohn">-->
+<!--        <addForeignKeyConstraint baseTableName="student"-->
+<!--                                 baseColumnNames="department_id"-->
+<!--                                 constraintName="fk_student_department"-->
+<!--                                 onDelete="CASCADE"-->
+<!--                                 onUpdate="RESTRICT"-->
+<!--                                 referencedTableName="department"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 validate="true"/>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="add-fk-student-teachers-student" author="temirjohn">-->
+<!--        <addForeignKeyConstraint baseTableName="student_teachers"-->
+<!--                                 baseColumnNames="student_id"-->
+<!--                                 constraintName="fk_student_teachers_student"-->
+<!--                                 onDelete="CASCADE"-->
+<!--                                 onUpdate="RESTRICT"-->
+<!--                                 referencedTableName="student"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 validate="true"/>-->
+<!--    </changeSet>-->
+
+<!--    <changeSet id="add-fk-student-teachers-teacher" author="temirjohn">-->
+<!--        <addForeignKeyConstraint baseTableName="student_teachers"-->
+<!--                                 baseColumnNames="teachers_id"-->
+<!--                                 constraintName="fk_student_teachers_teacher"-->
+<!--                                 onDelete="CASCADE"-->
+<!--                                 onUpdate="RESTRICT"-->
+<!--                                 referencedTableName="teacher"-->
+<!--                                 referencedColumnNames="id"-->
+<!--                                 validate="true"/>-->
+<!--    </changeSet>-->
+
+<!--</databaseChangeLog>-->

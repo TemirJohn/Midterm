@@ -1,5 +1,6 @@
 package org.temirjohn.midterm.service;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,17 +8,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.temirjohn.midterm.dto.DepartmentDto;
 import org.temirjohn.midterm.dto.StudentDto;
 import org.temirjohn.midterm.dto.TeacherDto;
-import org.temirjohn.midterm.entity.Department;
-import org.temirjohn.midterm.entity.Student;
-import org.temirjohn.midterm.entity.Teacher;
-import org.temirjohn.midterm.service.impl.DepartmentServiceImpl;
 import org.temirjohn.midterm.service.impl.StudentServiceImpl;
-import org.temirjohn.midterm.service.impl.TeacherServiceImpl;
 
 import java.util.List;
 import java.util.Random;
 
 @SpringBootTest
+@Transactional
 public class StudentServiceImplTest {
     @Autowired
     private StudentServiceImpl studentService;

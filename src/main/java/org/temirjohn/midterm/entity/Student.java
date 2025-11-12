@@ -21,5 +21,10 @@ public class Student {
     private Department department;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "student_teachers",
+            joinColumns = @JoinColumn(name = "student_id"), // колонка в join-таблице, ссылающаяся на Student
+            inverseJoinColumns = @JoinColumn(name = "teachers_id") // колонка, ссылающаяся на Teacher
+    )
     private List<Teacher> teachers;
 }
